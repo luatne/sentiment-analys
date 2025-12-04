@@ -22,27 +22,23 @@ Tối ưu Hiệu suất: Mô hình được cấu hình để chạy ổn địn
 
 # II. 🛠️ Công nghệ & Thư viện Chính
 
-Công nghệ
-
-Mục đích
-
-Streamlit
+Streamlit :
 
 Xây dựng giao diện ứng dụng web tương tác (Front-end/UI).
 
-PyTorch
+PyTorch :
 
 Khung Deep Learning nền tảng để chạy và quản lý mô hình.
 
-Hugging Face/Transformers
+Hugging Face/Transformers :
 
 Cung cấp mô hình nền tảng DistilBERT và các công cụ Tokenizer.
 
-Underthesea
+Underthesea :
 
 Hỗ trợ tách từ tiếng Việt và xử lý ngôn ngữ tự nhiên.
 
-SQLite3
+SQLite3 :
 
 Hệ quản trị cơ sở dữ liệu để lưu trữ lịch sử phân loại.
 
@@ -96,5 +92,6 @@ streamlit run app.py
 
 
 Ứng dụng sẽ tự động mở trên trình duyệt web tại địa chỉ: http://localhost:8501
+
 
 
