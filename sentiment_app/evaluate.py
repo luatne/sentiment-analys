@@ -5,10 +5,7 @@ from tqdm.auto import tqdm
 import sys
 import os 
 
-# ----------------------------------------------------------------------
-# IMPORT TỪ CÁC MODULE KHÁC
-# Sửa: Loại bỏ LABEL_MAP vì không tồn tại trong sentiment1.py
-# ----------------------------------------------------------------------
+
 try:
     from sentiment1 import _load_model_cached, classify_text 
     from preprocess import preprocess
@@ -17,11 +14,6 @@ except ImportError as e:
     print("Vui lòng đảm bảo các file sentiment1.py và preprocess.py đã được tạo và nằm trong cùng thư mục.")
     sys.exit(1)
 
-# ----------------------------------------------------------------------
-# BỘ DATASET KIỂM THỬ THỦ CÔNG (10 CÂU)
-# ----------------------------------------------------------------------
-
-# Dữ liệu: [Văn bản, Nhãn đúng (Positive, Negative, Neutral)]
 TEST_DATA = [
     # Positive (Tích cực)
     ("Hôm nay tôi rất vui  ", "POSITIVE"), # Chuyển thành chữ hoa để khớp với sentiment1.py
@@ -58,9 +50,6 @@ def classify_only(raw_text: str):
         
     return result['sentiment']
 
-# ----------------------------------------------------------------------
-# HÀM CHÍNH: CHẠY ĐÁNH GIÁ TRÊN 10 CÂU TEST
-# ----------------------------------------------------------------------
 def evaluate_manual_test_set(test_data):
     """
     Thực hiện phân loại trên bộ 10 câu test thủ công và tính toán metrics.
@@ -79,9 +68,6 @@ def evaluate_manual_test_set(test_data):
     
     print("\n>>> BẮT ĐẦU ĐÁNH GIÁ TRÊN BỘ 10 CÂU TEST <<<")
     
-    # Cần đảm bảo nhãn đúng trong TEST_DATA khớp với chuỗi trả về từ classify_only
-    # Vì sentiment1.py trả về 'POSITIVE', 'NEGATIVE', 'NEUTRAL' (chữ hoa),
-    # tôi đã sửa TEST_DATA ở trên để khớp.
 
     for text, true_label in tqdm(test_data, desc="Đang dự đoán"):
         predicted_sentiment = classify_only(text)
@@ -105,19 +91,14 @@ def evaluate_manual_test_set(test_data):
     df = pd.DataFrame(detailed_results)
     print(df.to_markdown(index=False)) 
 
-    # ----------------------------------------------------
-    # TÍNH ACCURACY VÀ METRICS
-    # ----------------------------------------------------
     
     print("\n===================================================\n")
     if not all_predictions:
         print("Không có mẫu hợp lệ nào được thu thập. Vui lòng kiểm tra lại cấu hình.")
         return
 
-    # Tính toán Accuracy
     accuracy = accuracy_score(all_true_labels, all_predictions)
     
-    # Lấy danh sách nhãn duy nhất có trong dữ liệu test và sắp xếp
     unique_labels = sorted(list(set(all_true_labels))) 
 
     print(f">>> KẾT QUẢ ĐÁNH GIÁ TRÊN {len(TEST_DATA)} CÂU TEST THỦ CÔNG <<<")
@@ -129,7 +110,6 @@ def evaluate_manual_test_set(test_data):
     print(cm_df.to_markdown())
 
     print("\n--- BÁO CÁO PHÂN LOẠI (CLASSIFICATION REPORT) ---")
-    # Lưu ý: Cần đảm bảo các nhãn trong unique_labels khớp với nhãn trong báo cáo
     report = classification_report(all_true_labels, all_predictions, labels=unique_labels)
     print(report)
     print("===================================================\n")
