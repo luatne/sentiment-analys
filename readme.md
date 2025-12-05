@@ -92,6 +92,8 @@ streamlit run app.py
 
 
 Ứng dụng sẽ tự động mở trên trình duyệt web tại địa chỉ: http://localhost:8501
+# 5.video demo
+link video:https://drive.google.com/file/d/1SSU4-Y2imsWCiHFdJVAYgS6yfmcJ8tNp/view?usp=sharing
 
 
 
